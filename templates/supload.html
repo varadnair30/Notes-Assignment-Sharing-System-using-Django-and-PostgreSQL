@@ -1,0 +1,133 @@
+{% extends 'spagemaster.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            }
+            body{
+                 
+              background-image: url({%static 'images/united2.jpeg' %});
+              background-position:center;
+             background-size:cover;
+             font-family:sans-serif;
+              }
+            .upload{
+                    width:800px;
+              background-color:rgb(0,0,0,0.8);
+              margin:auto;
+              color:white;
+              padding:10px 0px 10px 0px;
+              text-align:center;
+              border-radius:15px 15px 0px 0px ;
+              }  
+            .main{
+                background-color:rgb(0,0,0,0.8);
+             width:800px;
+             margin:auto;}
+            
+            form{
+                padding:10px;
+             
+            } 
+            
+            #name{
+                 width:100%;
+              height:100px;
+              
+              }  
+            .name{
+                      margin-left:25px;
+             margin-top:30px;
+             width: 125px;
+                      color:white;
+                      font-size: 18px;
+                      font-weight: 700;}
+            .files{
+               position:relative;
+               left:20px;
+               color:white;
+                }
+            .subject{
+                  position:relative;
+            left:200px;
+               top:-37px;
+               line-height: 40px;
+               width:480px;
+                  border-radius: 6px;
+               padding: 0 22px;
+               font-size: 20px;
+               color: #555;  
+              }
+            .option{
+                   position:relative;
+            left:200px;
+               top:-37px;
+               line-height: 40px;
+               width:532px;
+               height:40px;
+                  border-radius: 6px;
+               padding: 0 22px;
+               font-size: 16px;
+               color: #555; 
+               outline:none;
+               overflow:hidden;
+            }    
+            .option option{
+                           font-size:20px;
+                 }
+            #branch_year{
+                          margin-left:25px;
+              color:white;
+              font-size:20px;
+              
+                } 
+            button{
+               background-color:#3BAF9F;
+               display:block;
+               margin:20px 0px 0px 20px;
+               text-align:center;
+               border-radius:12px;
+               border:2px solid #366473;
+               padding:14px 110px;
+               outline:none;
+               color:white;
+               cursor:pointer;
+               transition:0.25px;
+              } 
+            button:hover{
+                          background-color:#5390F5;
+                }  
+    </style>
+</head>
+<body>
+    <div class="upload">
+        <h1 style="color:red">Upload Notes/Assignments</h1>
+    </div>
+    
+    <div class="main">
+        <form method="POST" action="/supload/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2 class="name">Subject ID</h2>
+            <input class="subject" type="text" name="t1">
+
+            <h2 class="name">Select File</h2>
+        <input class="files" type="file" name="doc">
+        <button type="submit" name="b1" value="Upload">Upload</button>
+                    {% if info %}
+                    {{info}}
+                    {% endif %}
+    
+        </form>
+</div>
+</body>
+</html>
+
+{% endblock %}

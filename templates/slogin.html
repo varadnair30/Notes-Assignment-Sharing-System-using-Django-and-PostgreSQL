@@ -1,0 +1,131 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>UIT &mdash; </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% include "bootstrap.html" %}
+
+  </head>
+
+  <body>
+  <div class="site-wrap" id="home-section">
+
+      <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+      </div>
+
+
+
+      <header class="site-navbar site-navbar-target" role="banner">
+
+        <div class="container">
+          <div class="row align-items-center position-relative">
+
+            <div class="col">
+              <div class="site-logo">
+               <a href="https://www.united.ac.in"><img src=" {% static  'images/ugi.jpeg' %} " alt="Not active" /> <strong>UNITED</strong></a>
+              </div>
+            </div>
+
+            <div class="col-9 text-right text-lg-left">
+              
+              <span class="d-inline-block d-lg-none"><a href="#" class=" site-menu-toggle js-menu-toggle py-5 "><span class="icon-menu h3 text-black"></span></a></span>
+
+              <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
+                <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                  <li class="active"><a href="../" class="nav-link">Home</a></li>
+                  <li class="has-children">
+                    <li><a href="../tlogin/" class="nav-link">Teacher Login</a></li>  
+                    <li><a href="../slogin/" class="nav-link">Student Login</a></li>  
+                    <li><a href="../admin/" class="nav-link">Admin Login</a></li>  
+                    <li><a href="../contact/" class="nav-link">Contact</a></li>  
+                   
+                   
+                </ul>
+              </nav>
+            </div>
+
+            
+          </div>
+        </div>
+
+      </header>
+
+<div class="hero overlay" style="background-image: url({% static 'images/hero_bg_1.jpg'%});">
+        
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-lg-12">
+
+              <div class="row align-items-center justify-content-between">
+
+                <div class="col-lg-5 intro">
+                  <h1 class="text-white"><strong>Assignments</strong> &amp; Notes Sharing System</h1>
+                  <p class="text-white">It is not <b>THE ANSWER</b> that enlightens but <b>THE QUESTIONS</b> </p>
+                </div>
+
+                <div class="col-lg-5">
+                  <form class="book-form" action="../slogin/" method="POST">
+                    {% csrf_token %}
+                    <h3>Student Login</h3>
+                    <div class="row align-items-center">
+                      <div class="mb-3 mb-md-4 col-md-12">
+                        <input type="text" class="form-control" name="id" placeholder="Enter id">
+                      </div>
+                      <div class="mb-3 mb-md-4 col-md-12">
+                        <input type="text" class="form-control" name="s_name" placeholder="Enter Name">
+                      </div>
+                      <div class="mb-3 mb-md-4 col-md-12">
+                        <input type="password" class="form-control" name="Password" placeholder="Enter Password">
+                      </div>
+                      <div class="mb-3 mb-md-4 col-md-12">
+                        <p>Branch:</p>
+                        <input type="radio" id="CS" name="r1" value="CS">
+                          <label for="CS">CS</label>
+                        <input type="radio" id="IT" name="r1" value="IT">
+                          <label for="IT">IT</label>
+                        <input type="radio" id="EC" name="r1" value="EC">
+                          <label for="EC">EC</label>
+                        <input type="radio" id="ME" name="r1" value="ME">
+                          <label for="ME">ME</label>
+                        <input type="radio" id="CE" name="r1" value="CE">
+                          <label for="CE">CE</label>
+                       </div>
+                      <div class="mb-3 mb-md-4 col-md-12">
+                        <p>Year:</p>
+                        <input type="radio" id="2nd" name="r2" value="2">
+                          <label for="2ndyear">2</label>
+                        <input type="radio" id="3rd" name="r2" value="3">
+                          <label for="3rdyear">3</label>
+                        <input type="radio" id="4rth" name="r2" value="4">
+                          <label for="4rthyear">4</label>  
+                       </div>
+                     
+                      <div class="col-md-12">
+                        <input type="submit" value="login" class="btn btn-primary btn-block py-3">
+                      </div>
+                    </div>
+
+                  </form>
+
+                </div>
+              </div>
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      </body>
+      </html>
+{% endblock %}

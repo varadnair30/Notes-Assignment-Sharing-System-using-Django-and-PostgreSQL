@@ -1,0 +1,549 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head><!--Cube begins-->
+  <style type="text/css" media="screen">
+.button {
+    
+    --offset: 10px;
+    --border-size: 2px;
+    
+    display: block;
+    position: relative;
+    padding: 1.5em 3em;
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: #e55743;
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 0;
+    box-shadow: inset 0 0 0 var(--border-size) currentcolor;
+    transition: background .8s ease;
+    
+    &:hover {
+        background: rgba(100, 0, 0, .03);
+    }
+    
+    &__horizontal,
+    &__vertical {
+        position: absolute;
+        top: var(--horizontal-offset, 0);
+        right: var(--vertical-offset, 0);
+        bottom: var(--horizontal-offset, 0);
+        left: var(--vertical-offset, 0);
+        transition: transform .8s ease;
+        will-change: transform;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            border: inherit;
+        }
+    }
+    
+    &__horizontal {
+        --vertical-offset: calc(var(--offset) * -1);
+        border-top: var(--border-size) solid currentcolor;
+        border-bottom: var(--border-size) solid currentcolor;
+        
+        &::before {
+            top: calc(var(--vertical-offset) - var(--border-size));
+            bottom: calc(var(--vertical-offset) - var(--border-size));
+            left: calc(var(--vertical-offset) * -1);
+            right: calc(var(--vertical-offset) * -1);
+        }
+    }
+    
+    &:hover &__horizontal {
+        transform: scaleX(0);
+    }
+    
+    &__vertical {
+        --horizontal-offset: calc(var(--offset) * -1);
+        border-left: var(--border-size) solid currentcolor;
+        border-right: var(--border-size) solid currentcolor;
+        
+        &::before {
+            top: calc(var(--horizontal-offset) * -1);
+            bottom: calc(var(--horizontal-offset) * -1);
+            left: calc(var(--horizontal-offset) - var(--border-size));
+            right: calc(var(--horizontal-offset) - var(--border-size));
+        }
+    }
+    
+    &:hover &__vertical {
+        transform: scaleY(0);
+    }
+    
+}
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Lucida Grande', Verdana, Arial;
+      font-size: 12px;
+      background-image: -webkit-gradient(radial,
+                            50% 500, 1,
+                            50% 500, 400,
+                            from(rgba(255, 255, 255, 0.3)),
+                            to(rgba(255, 255, 255, 0)));
+     background-repeat: no-repeat;
+    }
+
+    #container {
+      width: 100%;
+      height: 700px;
+      -webkit-perspective: 800; /* For compatibility with iPhone 3.0, we leave off the units here */
+      -webkit-perspective-origin: 50% 225px;
+    }
+    #stage {
+      width: 100%;
+      height: 100%;
+      -webkit-transition: -webkit-transform 2s;
+      -webkit-transform-style: preserve-3d;
+    }
+    
+    #shape {
+      position: relative;
+      top: 160px;
+      margin: 0 auto;
+      height: 200px;
+      width: 200px;
+      -webkit-transform-style: preserve-3d;
+    }
+    
+    .plane {
+      position: absolute;
+      height: 200px;
+      width: 200px;
+      border: 1px solid white;
+      -webkit-border-radius: 12px;
+      -webkit-box-sizing: border-box;
+      text-align: center;
+      font-family: Times, serif;
+      font-size: 124pt;
+      color: black;
+      background-color: rgba(255, 255, 255, 0.6);
+      -webkit-transition: -webkit-transform 2s, opacity 2s;
+      -webkit-backface-visibility: hidden;
+    }
+
+    #shape.backfaces .plane {
+      -webkit-backface-visibility: visible;
+    }
+    
+    #shape {
+      -webkit-animation: spin 8s infinite linear;
+    }
+
+    @-webkit-keyframes spin {
+      from { -webkit-transform: rotateY(0); }
+      to   { -webkit-transform: rotateY(-360deg); }
+    }
+
+    /* ---------- cube styles ------------- */
+    .cube > .one {
+      opacity: 0.5;
+      -webkit-transform: scale3d(1.2, 1.2, 1.2) rotateX(90deg) translateZ(100px);
+    }
+
+    .cube > .two {
+      opacity: 1;
+      -webkit-transform: scale3d(1, 1, 1) translateZ(100px);
+    }
+
+    .cube > .three {
+      opacity: 1;
+      -webkit-transform: scale3d(1, 1, 1) rotateY(90deg) translateZ(100px);
+    }
+
+    .cube > .four {
+      opacity: 1;
+      -webkit-transform: scale3d(1, 1, 1) rotateY(180deg) translateZ(100px);
+    }
+
+    .cube > .five {
+      opacity: 1;
+      -webkit-transform: scale3d(1, 1, 1) rotateY(-90deg) translateZ(100px);
+    }
+
+    .cube > .six {
+      opacity: 0.5;
+      -webkit-transform: scale3d(1.2, 1.2, 1.2) rotateX(-90deg) translateZ(100px) rotate(180deg);
+    }
+
+
+    .cube > .seven {
+      -webkit-transform: scale3d(0.8, 0.8, 0.8) rotateX(90deg) translateZ(100px) rotate(180deg);
+    }
+
+    .cube > .eight {
+      -webkit-transform: scale3d(0.8, 0.8, 0.8) translateZ(100px);
+    }
+
+    .cube > .nine {
+      -webkit-transform: scale3d(0.8, 0.8, 0.8) rotateY(90deg) translateZ(100px);
+    }
+
+    .cube > .ten {
+      -webkit-transform: scale3d(0.8, 0.8, 0.8) rotateY(180deg) translateZ(100px);
+    }
+
+    .cube > .eleven {
+      -webkit-transform: scale3d(0.8, 0.8, 0.8) rotateY(-90deg) translateZ(100px);
+    }
+
+    .cube > .twelve {
+      -webkit-transform: scale3d(0.8, 0.8, 0.8) rotateX(-90deg) translateZ(100px);
+    }
+
+    /* ---------- ring styles ------------- */
+    .ring > .one {
+      -webkit-transform: translateZ(380px);
+    }
+
+    .ring > .two {
+      -webkit-transform: rotateY(30deg) translateZ(380px);
+    }
+
+    .ring > .three {
+      -webkit-transform: rotateY(60deg) translateZ(380px);
+    }
+
+    .ring > .four {
+      -webkit-transform: rotateY(90deg) translateZ(380px);
+    }
+
+    .ring > .five {
+      -webkit-transform: rotateY(120deg) translateZ(380px);
+    }
+
+    .ring > .six {
+      -webkit-transform: rotateY(150deg) translateZ(380px);
+    }
+
+    .ring > .seven {
+      -webkit-transform: rotateY(180deg) translateZ(380px);
+    }
+
+    .ring > .eight {
+      -webkit-transform: rotateY(210deg) translateZ(380px);
+    }
+
+    .ring > .nine {
+      -webkit-transform: rotateY(-120deg) translateZ(380px);
+    }
+
+    .ring > .ten {
+      -webkit-transform: rotateY(-90deg) translateZ(380px);
+    }
+
+    .ring > .eleven {
+      -webkit-transform: rotateY(300deg) translateZ(380px);
+    }
+
+    .ring > .twelve {
+      -webkit-transform: rotateY(330deg) translateZ(380px);
+    }
+
+    .controls {
+      width: 80%;
+      margin: 0 auto;
+      padding: 5px 20px;
+      -webkit-border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    .controls > div {
+      margin: 10px;
+    }
+  </style>
+  <script type="text/javascript" charset="utf-8">
+    function hasClassName(inElement, inClassName)
+    {
+        var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)');
+        return regExp.test(inElement.className);
+    }
+
+    function addClassName(inElement, inClassName)
+    {
+        if (!hasClassName(inElement, inClassName))
+            inElement.className = [inElement.className, inClassName].join(' ');
+    }
+
+    function removeClassName(inElement, inClassName)
+    {
+        if (hasClassName(inElement, inClassName)) {
+            var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)', 'g');
+            var curClasses = inElement.className;
+            inElement.className = curClasses.replace(regExp, ' ');
+        }
+    }
+
+    function toggleClassName(inElement, inClassName)
+    {
+        if (hasClassName(inElement, inClassName))
+            removeClassName(inElement, inClassName);
+        else
+            addClassName(inElement, inClassName);
+    }
+
+    function toggleShape()
+    {
+      var shape = document.getElementById('shape');
+      if (hasClassName(shape, 'ring')) {
+        removeClassName(shape, 'ring');
+        addClassName(shape, 'cube');
+      } else {
+        removeClassName(shape, 'cube');
+        addClassName(shape, 'ring');
+      }
+      
+      // Move the ring back in Z so it's not so in-your-face.
+      var stage = document.getElementById('stage');
+      if (hasClassName(shape, 'ring'))
+        stage.style.webkitTransform = 'translateZ(-200px)';
+      else
+        stage.style.webkitTransform = '';
+    }
+    
+    function toggleBackfaces()
+    {
+      var backfacesVisible = document.getElementById('backfaces').checked;
+      var shape = document.getElementById('shape');
+      if (backfacesVisible)
+        addClassName(shape, 'backfaces');
+      else
+        removeClassName(shape, 'backfaces');
+    }
+  </script>
+  <!--Cube Ends-->
+    <title>UIT &mdash; </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% include "bootstrap.html" %}
+
+  </head>
+
+  <body>
+
+    
+    <div class="site-wrap" id="home-section">
+
+      <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+      </div>
+
+
+
+      <header class="site-navbar site-navbar-target" role="banner">
+
+        <div class="container">
+          <div class="row align-items-center position-relative">
+
+            <div class="col">
+              <div class="site-logo">
+               <a href="https://www.united.ac.in"><img src=" {% static  'images/ugi.jpeg' %} " alt="Not active" /> <strong>UNITED</strong></a>
+              </div>
+            </div>
+
+            <div class="col-9 text-right text-lg-left">
+              
+              <span class="d-inline-block d-lg-none"><a href="#" class=" site-menu-toggle js-menu-toggle py-5 "><span class="icon-menu h3 text-black"></span></a></span>
+
+              <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
+                <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                  <li class="active"><a href="../" class="nav-link">Home</a></li>
+                  <li class="has-children">
+                    <li><a href="../tlogin/" class="nav-link">Teacher Login</a></li>  
+                    <li><a href="../slogin/" class="nav-link">Student Login</a></li>  
+                    <li><a href="../alogin/" class="nav-link">Admin Login</a></li>  
+                    <li><a href="../contact/" class="nav-link">Contact</a></li>  
+                   
+                   
+                </ul>
+              </nav>
+            </div>
+
+            
+          </div>
+        </div>
+
+      </header>
+
+      <div class="hero overlay" style="background-image: url({% static 'images/hero_bg_1.jpg'%});">
+        
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-lg-12">
+
+              <div class="row align-items-center justify-content-between">
+
+                <div class="col-lg-5 intro">
+                  <h1 class="text-white"><strong>Assignments</strong> &amp; Notes Sharing System</h1>
+                  <p class="text-white">It is not <b>THE ANSWER</b> that enlightens but <b>THE QUESTIONS</b> </p>
+                </div>
+
+                  <!--Cube-->
+                <div id="container-fluid">
+    <div id="stage">
+      <div id="shape" class="cube backfaces">
+<div class="plane two"><img src="{% static 'images/varad.jpg'%}"/></div>
+        <div class="plane three"><img src="{% static 'images/vaishali.jpeg'%}"/></div>
+        <div class="plane four"><img src="{% static 'images/vidushi.jpeg'%}"/></div>
+        <div class="plane five"><img src="{% static 'images/utkarsh1.jpeg'%}"/></div>
+        </div>
+      
+   </div>
+   </div>
+   </div>
+
+                <!--Cube ends-->
+
+                  
+
+                </div>
+              </div>
+              
+              
+            </div>
+          </div>
+          
+  
+
+
+      
+      
+
+      <div class="site-section bg-light">
+        <div class="container">
+          <div class="row text-center justify-content-center mb-4">
+            <div class="col-lg-7">
+              <h2 class="mb-4 section-heading"><strong>Quotes</strong></h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="mb-4 mb-lg-0 col-sm-6 col-md-6 col-lg-4">
+              <div class="testimonial-2">
+                <div class="d-flex v-card align-items-center mb-4">
+                  <img src="{% static 'images/mark.jpg' %}" alt="Image" class="img-fluid mr-3">
+                  <div class="author-name">
+                    <span class="d-block">Mark Zuckerberg</span>
+                    
+                  </div>
+                </div>
+                <blockquote>
+                  <p>"Life without discipline is like a ship without its rudder"</p>
+                </blockquote>
+              </div>
+            </div>
+            <div class="mb-4 mb-lg-0 col-sm-6 col-md-6 col-lg-4">
+              <div class="testimonial-2">
+                <div class="d-flex v-card align-items-center mb-4">
+                  <img src="{% static 'images/bill.jpg' %}" alt="Image" class="img-fluid mr-3">
+                  <div class="author-name">
+                    <span class="d-block">Bill Gates</span>
+                    
+                  </div>
+                </div>
+                <blockquote>
+                  <p>"Don't go anywhere to compete but to rule"</p>
+                </blockquote>
+              </div>
+            </div>
+            <div class="mb-4 mb-lg-0 col-sm-6 col-md-6 col-lg-4">
+              <div class="testimonial-2">
+                <div class="d-flex v-card align-items-center mb-4">
+                  <img src="{% static 'images/jeff.jpg' %}" alt="Image" class="img-fluid mr-3">
+                  <div class="author-name">
+                    <span class="d-block">Jeff Bezos</span>
+                    
+                  </div>
+                </div>
+                <blockquote>
+                  <p>"If you do build a great experience, customers tell each other about that. Word of mouth is very powerful."</p>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+        
+      <footer class="site-footer" style="background-image: url({% static 'images/hero_bg_footer.jpg'%});">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3">
+              <h2 class="footer-heading mb-4">About Us</h2>
+              <p>An important pioneer of UNITED GROUP OF INSTITUTIONS since 2007 </p>
+              <ul class="list-unstyled social">
+                <li><a href="#"><span class="icon-facebook"></span></a></li>
+                <li><a href="#"><span class="icon-instagram"></span></a></li>
+                <li><a href="#"><span class="icon-twitter"></span></a></li>
+                <li><a href="#"><span class="icon-linkedin"></span></a></li>
+              </ul>
+            </div>
+            <div class="col-lg-8 ml-auto">
+              <div class="row">
+                <div class="col-lg-4">
+                  <h2 class="footer-heading mb-4">Quick Links</h2>
+                  <ul class="list-unstyled">
+                    <li><a href="#">About Us</a></li>
+                    
+                    <li><a href="#">Contact Us</a></li>
+                  </ul>
+                </div>
+                
+                <div class="col-lg-4">
+                  <h2 class="footer-heading mb-4">Resources</h2>
+                  <ul class="list-unstyled">
+                    <li><a href="#">AKTU</a></li>
+                    
+                    <li><a href="#">Myloft</a></li>
+                  </ul>
+                </div>
+                <div class="col-lg-4">
+                  <h2 class="footer-heading mb-4">Support</h2>
+                  <ul class="list-unstyled">
+                    <li><a href="#">Grievance cell</a></li>
+                    
+                    <li><a href="#">Examination cell</a></li>
+                  </ul>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <div class="row pt-5 mt-5 text-center">
+            <div class="col-md-12">
+              <div class="border-top pt-5">
+                <p>
+              
+              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |  United</a>
+              
+              </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+    
+
+  </body>
+
+</html>
+{% endblock %}

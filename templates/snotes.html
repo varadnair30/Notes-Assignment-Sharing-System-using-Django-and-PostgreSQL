@@ -1,0 +1,49 @@
+{% extends 'spagemaster.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submissions</title>
+    
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Notes/Assignments</h1>
+        {% if rs %}
+        <form>
+            <table class="table table-hover  table bordered">
+                <tr class="bg-success">
+                    <td>Teacher Name</td>
+                    <td>Branch</td>
+                    <td>Subject ID</td>
+                    <td>Uploaded File</td>
+                    <td></td>
+                </tr>
+                {% for msg in rs %}
+                <tr>
+                    <td>{{msg.send_name}}</td>
+                    <td>{{msg.branch}}</td>
+                    <td>{{msg.sub_id}}</td>
+                    <td><a class="text-info" href ="{{msg.upload_file.url}}" download>{{msg.upload_file}}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+        {% else %}
+        <div class="row">
+            <div class="col-md-6">
+                <br>
+                <h5>No Assignments/Notes</h5>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    
+</body>
+</html>
+
+{% endblock %}

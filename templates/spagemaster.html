@@ -1,0 +1,17 @@
+<html>
+    <head>
+        {% include "bootstrap.html" %}
+    </head>
+    <body>
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                {% include "smenu.html" %}
+            </div>
+        </div>
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </body>
+</html>

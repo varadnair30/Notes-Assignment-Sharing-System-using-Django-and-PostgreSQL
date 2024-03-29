@@ -1,0 +1,37 @@
+{% extends "tpagemaster.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-10">
+      <h1>Uploaded</h1>
+      {%  if records %}
+      <table class="table table-hover table bordered">
+          <tr class="bg-warning">
+              <td>Name</td>
+              <td>Year</td>
+              <td>sub_id</td>
+              <td>Uploaded File</td>
+          </tr>
+          {% for r in records %}
+          <tr>
+              <td>{{r.send_name}}</td>
+              <td>{{r.year}}</td>
+              <td>{{r.sub_id}}</td>
+              <td><a class="text-info" href ="{{r.upload_file.url}}" download>{{r.upload_file}}</a></td>
+          </tr>
+          {% endfor %}
+      </table>
+     {% else %}
+        <div class="row">
+            <div class="col-md-6">
+                <br>
+                <h5>No Uploads</h5>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    
+   
+</div>
+{% endblock %}

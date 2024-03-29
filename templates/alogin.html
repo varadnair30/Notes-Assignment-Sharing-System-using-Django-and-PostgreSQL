@@ -1,0 +1,66 @@
+{% load static %}
+{% block content %}
+<html>
+  <head>
+    <title>Admin Login Page</title>
+    <style>
+      table{
+        background-color: black;
+        border: 7px solid white;
+        border-radius: 25px;
+        background: rgba(0,0,0,0.7);
+      }
+      #type{
+        height: 25px;
+        width: 250px;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        border-bottom: 3px solid white;
+        color:white;
+        font-size: 15px;
+      }
+      input::-webkit-input-placeholder
+      {
+        font-size: 15px;
+        line-height: 3;
+        color: white;
+      }
+      #btn{
+        width: 250px;
+        height: 35px;
+        background-color: orange;
+        font-size: 20px;
+
+      }
+    </style>
+  </head>
+<body background="{% static 'images/admin_bg3.jpg' %}">
+  <br><br><br><br><br>
+  <form action="../alogin/" method="POST">
+    {% csrf_token %}
+  <table width="25%" border="0" cellspacing="30" align="center">
+    <tr>
+      <td align="center"><img src="{%static 'images/img_avatar1.png' %}" width="50%"></td>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="Username" id="type" name="uname"></td>
+    </tr>
+    <tr>
+      <td><input type="password" placeholder="Password" id="type" name="psw"></td>
+    </tr>
+    <!--tr>
+      <td align="right">
+        <a href="#" color=>
+          Forgot password?
+        </a>
+      </td>
+    </tr-->
+    <tr>
+      <td align="center"><input type="submit" value="Login" id="btn"></td>
+    </tr>
+  </table>
+  </form>
+</body>  
+</html>
+{% endblock %}        
