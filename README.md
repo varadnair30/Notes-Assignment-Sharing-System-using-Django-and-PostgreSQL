@@ -1,3 +1,7 @@
+Software prerequisites:-
+1) Python installed
+2) PostgreSQL installed
+
 Follow the mentioned steps for successfully installing and running this Django Project. ( Assuming that you already a bit of familiarity like how to start a django project ):-
 
 1) "pip install django" to install the Django into the system. (If you want to install the django to the virtual environment without disturbing the default python configuration use Virtual Environment. Click this link (https://www.youtube.com/watch?v=EjIoERmeVE8)  to watch a tutorial.)
